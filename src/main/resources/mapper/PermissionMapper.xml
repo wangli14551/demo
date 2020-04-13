@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.st.dao.IPermissionDao">
+	<resultMap id="selPerm" type="com.st.bean.TreeNode">
+		<id property="id" column="parent_id" />
+		<result property="title" column="parent_name" />
+		<!-- 一对多 -->
+		<collection property="children"
+			ofType="com.st.bean.TreeNode">
+			<!-- 配置主键 -->
+			<id property="id" column="perm_id" />
+			<result property="title" column="perm_name" />
+		</collection>
+		<!-- 一对一 -->
+		<!-- <association property="list" javaType="com.st.bean.Admin"> 配置主键 <id 
+			property="admin_id" column="admin_id" /> <result property="departid" column="departid" 
+			/> <result property="departname" column="departname" /> <result property="phonenum" 
+			column="phonenum" /> <result property="nickname" column="nickname" /> </association> -->
+	</resultMap>
+
+	<select id="selPerm" parameterType="java.util.Map"
+		resultMap="selPerm">
+		select a.perm_id parent_id,a.perm_name
+		parent_name,b.perm_id,b.perm_name from permission a left join
+		permission b on a.perm_id=b.parent_id where a.parent_id is null;
+	</select>
+	<select id="selUserPerm" parameterType="String"
+		resultType="com.st.bean.UserPerm">
+		select a.* from permission a left join role_permission b on
+		a.perm_id=b.perm_id left join role c on b.role_id=c.role_id left join
+		user_role d on c.role_id=d.role_id left join user e on
+		d.user_id=e.user_id where phonenum=#{phonenum};
+	</select>
+	<select id="selPerm_list" parameterType="java.util.Map"
+		resultType="com.st.bean.Permission">
+		select * from permission;
+	</select>
+</mapper>

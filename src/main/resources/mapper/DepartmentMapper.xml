@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="com.st.dao.IDepartmentDao">
+	<select id="getCount" parameterType="java.util.Map"
+		resultType="int">
+		select Count(*) from department where departname like
+		'%${lay_text}%';
+	</select>
+	<select id="selUser" parameterType="java.util.Map"
+		resultType="com.st.bean.Department">
+		select * from department where departname like
+		'%${lay_text}%' limit ${start},${limit};
+	</select>
+	<insert id="insUser" parameterType="java.util.Map">
+		insert into
+		department(departid,departname,createtime)
+		values(#{departid},#{departname},now());
+	</insert>
+	<delete id="delUser" parameterType="java.util.Map">
+		delete from department where
+		departid in
+		(${departid});
+	</delete>
+	<update id="updUser" parameterType="java.util.Map">
+		update department set
+		departname=#{departname}
+		where departid=#{departid};
+	</update>
+</mapper>

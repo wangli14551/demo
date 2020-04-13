@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="com.st.dao.IUserDao">
+	<select id="getCount" parameterType="java.util.Map"
+		resultType="int">
+		select Count(*) from user where phonenum like
+		'%${lay_text}%' or
+		nickname like '%${lay_text}%' or sex like
+		'%${lay_text}%';
+	</select>
+	<select id="selUser" parameterType="java.util.Map"
+		resultType="com.st.bean.User">
+		select * from user a left join user_role b on
+		a.user_id=b.user_id left join role c on b.role_id=c.role_id where
+		phonenum like
+		'%${lay_text}%' or
+		nickname like '%${lay_text}%' or sex
+		like '%${lay_text}%' order by createtime limit
+		${start},${limit};
+	</select>
+	<insert id="insUser" parameterType="java.util.Map">
+		insert into
+		user(phonenum,password,nickname,sex,birthday,state,createtime)
+		values(#{phonenum},#{password},#{nickname},#{sex},#{birthday},0,now());
+	</insert>
+	<delete id="delUser" parameterType="java.util.Map">
+		delete from user where
+		user_id in
+		(${user_id});
+	</delete>
+	<update id="updUser" parameterType="java.util.Map">
+		update user set
+		phonenum=#{phonenum},password=#{password},nickname=#{nickname},sex=#{sex},birthday=#{birthday},state=#{state}
+		where user_id=#{user_id};
+	</update>
+	<select id="selUser_role" parameterType="java.util.Map"
+		resultType="com.st.bean.User_role">
+		select * from user_role
+		where user_id=#{user_id};
+	</select>
+	<select id="selUser_pass" parameterType="java.util.Map"
+		resultType="com.st.bean.User">
+		select * from user where phonenum=#{phonenum};
+	</select>
+	<insert id="insUser_role" parameterType="java.util.Map">
+		insert into
+		user_role(user_id,role_id)
+		values(#{user_id},#{role_id});
+	</insert>
+	<update id="updUser_role" parameterType="java.util.Map">
+		update user_role set
+		role_id=#{role_id}
+		where user_id=#{user_id};
+	</update>
+
+</mapper>

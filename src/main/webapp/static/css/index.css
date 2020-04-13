@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+#div_insert, #div_update, #div_role, #div_perm {
+	font-size: 15px;
+	margin-top: 30px;
+	width: 500px;
+}
+
+#div_insert .layui-form-label {
+	width: 90px;
+}
+
+#div_update .layui-form-label {
+	width: 90px;
+}
+
+#div_role .layui-form-label {
+	width: 90px;
+}
+
+#div_perm .layui-form-label {
+	width: 90px;
+}
+
+#div_insert .layui-input-block {
+	margin-left: 120px;
+}
+
+#div_role .layui-input-block {
+	margin-left: 120px;
+}
+
+#div_update .layui-input-block {
+	margin-left: 120px;
+}
+
+#div_perm .layui-input-block {
+	margin-left: 120px;
+}

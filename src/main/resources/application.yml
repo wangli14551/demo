@@ -1,0 +1,11 @@
+#数据库
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/web?useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+#mybatis路径
+mybatis:  mapper-locations:  - classpath:mapper/*.xml
+#打印日志
+logging:  level:    com.st.dao: debug
